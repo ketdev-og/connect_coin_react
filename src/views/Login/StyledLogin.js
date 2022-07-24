@@ -45,9 +45,9 @@ export const StyledLogin = styled.div`
           background-color: ${Colors.primary};
           transition: all 300ms ease-in;
           color: ${Colors.secondary};
-          padding: 0.4rem 0;
+          padding: 0.6rem 0;
           border-radius: 10px;
-          width: 60%;
+          width: 100%;
         }
         .reg_btn .btn:hover {
           background-color: ${Colors.primary_dark};

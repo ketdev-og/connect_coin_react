@@ -6,7 +6,7 @@ import { Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import loadingSvg from "../../assets/img/loading.svg";
-import {Navigate} from "react-router-dom"
+import {Link, Navigate} from "react-router-dom"
 
 const initialValues = {
   first_name: "",
@@ -61,7 +61,10 @@ const Register = () => {
           setLoading(false)
           setErrorMessage("")
           localStorage.setItem('user', response.data.token);
-          <Navigate to="/dashboard" replace={true}/>
+          if (response.status === 200) {
+            <Navigate to="/dashboard" replace={true}/>
+          }
+         
         })
         .catch((err) => {
           setLoading(false)
@@ -237,12 +240,12 @@ const Register = () => {
               <span className="policy">
                 <input className="mr-2 leading-tight" type="checkbox" />I agree
                 to ConnectionCoin Marketing
-                <a
+                <Link
                   className="ml-2 inline-block align-baseline font-bold text-sm fg_policy"
-                  href=""
+                 to={"/"}
                 >
                   Privacy Policy
-                </a>
+                </Link>
               </span>
             </div>
             <div className="reg_btn flex justify-center mt-8">
@@ -260,12 +263,12 @@ const Register = () => {
             <div className="mt-2 flex justify-center">
               <span className="policy">
                 Already have an account?
-                <a
+                <Link
                   className="ml-2 inline-block align-baseline font-bold text-sm fg_policy"
-                  href=""
+                  to={"/"}
                 >
                   Login
-                </a>
+                </Link>
               </span>
             </div>
             <div className="mt-8">

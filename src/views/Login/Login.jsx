@@ -6,28 +6,13 @@ import Inputs from "../../components/inputs/Inputs";
 import { ErrorMessage, Form, Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import loadingSvg from "../../assets/img/loading.svg";
 
 const initialValues = {
   email: "",
   password: "",
-};
-
-const onSubmit = async (values) => {
-  console.log(values);
-  try {
-    axios
-      .post("http://localhost:5000/v1/auth/login", {
-        ...values,
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } catch (error) {
-    console.log(error);
-  }
 };
 
 const validationSchema = Yup.object({
@@ -42,12 +27,42 @@ const validationSchema = Yup.object({
 });
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  const onSubmit = async (values) => {
+    console.log(values);
+    try {
+      setLoading(true);
+      axios
+        .post("http://localhost:5000/v1/auth/login", {
+          ...values,
+        })
+        .then((response) => {
+          console.log(response);
+          setLoading(false);
+          setErrorMessage("");
+          localStorage.setItem("user", response.data.token);
+          if (response.status === 200) {
+            navigate("/dashboard");
+          }
+        })
+        .catch((err) => {
+          setLoading(false);
+          setErrorMessage(err.response.data.error.message);
+        });
+    } catch (error) {}
+  };
   return (
     <StyledLogin className="h-screen w-full flex justify-center items-center">
       <div className="login_con grid grid-cols-2 h-full w-full">
         <div className="bg-white lg_form flex flex-col justify-center items-center">
           <Logo />
           <p className="py-4 font-bold">Welcome Back</p>
+          <div className="err_msg my-2 text-center text-red-600">
+            <span>{errorMessage}</span>
+          </div>
           <div className="w-full px-8">
             <Formik
               initialValues={initialValues}
@@ -84,25 +99,28 @@ const Login = () => {
                   </div>
                 </div>
                 <div className="flex flex-col items-center justify-between">
-                  <a
+                  <Link
                     className="inline-block align-baseline font-bold text-sm fg_pass"
-                    href=""
+                    to={"/"}
                   >
                     Forgot Password?
-                  </a>
-                  <div className="reg_btn text-center mt-8 w-full">
+                  </Link>
+                  <div className="reg_btn flex justify-center w-5/6 mt-8">
                     <button type="submit" className="btn">
-                      Create Account
+                      Sign In{" "}
+                      {loading ? (
+                        <img srcSet={loadingSvg} alt="" className="inline" />
+                      ) : null}
                     </button>
                   </div>
                   <span className="dnt">
                     Dont have an account{" "}
-                    <a
+                    <Link
                       className="inline-block align-baseline font-bold text-sm fg_pass"
-                      href=""
+                      to={"/Register"}
                     >
                       Sign Up
-                    </a>{" "}
+                    </Link>{" "}
                   </span>
                 </div>
               </Form>
