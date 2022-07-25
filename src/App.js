@@ -6,6 +6,8 @@ import Register from "./views/Register/Register";
 import Dashboard from "./views/Dashboard/Dashboard";
 import Profile from "./views/Profile/Profile";
 import DepoHistory from "./views/DepoHistory/DepoHistory";
+import WithHistory from "./views/WithHistory/WithHistory";
+import Witdraw from "./views/Withdraw/Witdraw";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
               <Route path="/dashboard" element={<Dashboard/>}/>
               <Route path="/profile" element={<Profile/>}/>
               <Route path="/deposits" element={<DepoHistory/>}/>
+              <Route path="/withdrawals" element={<WithHistory/>}/>
+              <Route path="/withdraw" element={<Witdraw/>}/>
           </Routes>
         </BrowserRouter>
       </div>

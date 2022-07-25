@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Colors } from "../../constants/colors";
 
-export const StyledDepoHistory = styled.div`
+export const StyledWithHistory = styled.div`
     .his_head{
         font-size:2rem;
         color:${Colors.secondary_dark};
