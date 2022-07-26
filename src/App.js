@@ -12,7 +12,7 @@ import Witdraw from "./views/Withdraw/Witdraw";
 function App() {
   return (
     <div className="bg-slate-50">
-      <div className="bg-white w-5/6 mx-auto h-full">
+      <div className="bg-white h-full">
         <BrowserRouter>
           <Routes>
               <Route element={<Navlayout/>}>

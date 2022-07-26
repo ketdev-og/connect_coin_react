@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Colors } from "../../constants/colors";
-export const StyledDash = styled.div`
+export const StyledDashHome = styled.div`
   padding: 0 1rem;
 
   .dash_header {
