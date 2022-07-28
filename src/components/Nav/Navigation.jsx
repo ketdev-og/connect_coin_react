@@ -97,8 +97,8 @@ const Navigation = () => {
         </ul>
       </div>
       <div className="auth">
-        <Button outline={true} text={"Sign In"} />
-        <Button outline={false} text={"Sign Up"} />
+        <Button outline={true} text={"Sign In"} link={"/login"}/>
+        <Button outline={false} text={"Sign Up"} link={"/register"}/>
       </div>
     </StyledNavigation>
   );

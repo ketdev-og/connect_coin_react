@@ -13,6 +13,30 @@ export const StyledDash = styled.div`
       gap: 3rem;
       grid-template-columns: 20% 60% 10%;
 
+      .nav_icon{
+        position:relative;
+        cursor: pointer;
+        ul{
+          position:absolute;
+          z-index:100;
+          top:30px;
+          background-color:${Colors.primary};
+          border-radius:5px;
+          box-shadow:0 0 3px ${Colors.primary};
+          a{
+            padding:1rem 3rem;
+            display:flex;
+            flex-direction:column;
+            color:${Colors.secondary};
+            transition:all 300ms ease-in;
+
+            &:hover{
+              background-color:${Colors.primary_dark}
+            }
+          }
+        }
+      }
+
       div {
         border-bottom: 2px solid ${Colors.primary_dark};
 

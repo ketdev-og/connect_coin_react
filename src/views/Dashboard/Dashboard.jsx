@@ -1,166 +1,173 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../../components/Logo/Logo";
 import { StyledDash } from "./StyledDash";
-import { Link } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import { MdAccountBalance } from "react-icons/md";
-import {
-  FaClock,
-  FaMoneyBillAlt,
-  FaRegCalendarAlt,
-  FaUserAlt,
-  FaUserNurse,
-} from "react-icons/fa";
-import { RiCoinsLine, RiHandCoinFill } from "react-icons/ri";
-import { BsCashCoin, BsCashStack } from "react-icons/bs";
-import { GiCoins } from "react-icons/gi";
-import { IoCashOutline } from "react-icons/io5";
-import { GrBitcoin } from "react-icons/gr";
+import { FaMoneyBillAlt, FaUserNurse } from "react-icons/fa";
+
 import { HiOutlineCash } from "react-icons/hi";
 import { AiOutlineUserAdd } from "react-icons/ai";
-import UserDetails from "../../components/UserDetails/UserDetail";
-import AccDetail from "../../components/AccDetails/AccDetail";
+import DashHome from "../DashHome/DashHome";
+import Profile from "../Profile/Profile";
+import DepoHistory from "../DepoHistory/DepoHistory";
+import WithHistory from "../WithHistory/WithHistory";
+import Witdraw from "../Withdraw/Witdraw";
+import { AnimatePresence, motion } from "framer-motion";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
+
+const containerVariant = {
+  exit: {
+    opacity: 0,
+    y: "5vh",
+    transition: {
+      type: "tween",
+      delay: 0.1,
+    },
+  },
+  hidden: {
+    y: "5vh",
+    opacity: 0,
+  },
+
+  show: {
+    y: 5,
+    opacity: 1,
+    transition: {
+      type: "tween",
+      delay: 0.1,
+    },
+  },
+};
 
 const Dashboard = () => {
-  return (
-    <StyledDash>
-      <div className="dash_header">
-        <div className="ds_logo">
-          <Logo />
-        </div>
+  const [showTradeNav, setTradeNav] = useState(false);
+  const [isAuth, setSetIsAuth] = useState(true);
+  const [user, setUser] = useState({});
 
-        <div className="us_dt mt-4">
-          <div className="us_name">
-            <span>Favour Man</span>
+  const toggleTradeNav = () => {
+    setTradeNav(!showTradeNav);
+  };
+
+  const token = localStorage.getItem("user");
+  const configuration = {
+    method: "get",
+    url: "http://localhost:5000/v1/auth/user",
+    headers: {
+      authorization: `${token}`,
+    },
+  };
+
+  useEffect(() => {
+    if (!token) {
+      setSetIsAuth(false);
+    } else {
+      axios(configuration)
+        .then((data) => {
+          setUser(data);
+          console.log(data);
+          setSetIsAuth(true);
+        })
+        .catch((err) => {
+          setSetIsAuth(false);
+          console.log(err);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuth, token]);
+
+  return (
+    <div>
+      {isAuth ? (
+        <StyledDash>
+          <div className="dash_header">
+            <div className="ds_logo">
+              <Logo />
+            </div>
+
+            <div className="us_dt mt-4">
+              <div className="us_name">
+                <span>{user.data.first_name}</span>
+              </div>
+              <div className="welc">
+                <span>Welcome to your account</span>
+              </div>
+              <div
+                className="flex flex-col items-center nav_icon"
+                onMouseEnter={toggleTradeNav}
+                onMouseLeave={toggleTradeNav}
+              >
+                <FaUserNurse />
+                <AnimatePresence>
+                  {showTradeNav && (
+                    <motion.ul
+                      variants={containerVariant}
+                      initial="hidden"
+                      animate="show"
+                      className="sub_nav"
+                    >
+                      <Link to={"dashboard/profile"}>Profile</Link>
+                      <Link to={"/"}>Logout</Link>
+                    </motion.ul>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
           </div>
-          <div className="welc">
-            <span>Welcome to your account</span>
+
+          <div className="side_nav h-full mt-4">
+            <div className="side_nav_lis py-8 h-full flex flex-col items-center">
+              <Link to="/dashboard" className="py-8">
+                <span>
+                  <MdAccountBalance />
+                </span>
+                <span>Account</span>
+              </Link>
+              <Link to="dashboard/deposits">
+                <span>
+                  <FaMoneyBillAlt />
+                </span>
+                <span>Deposit</span>
+              </Link>
+              <Link to="dashboard/withdraw">
+                <span>
+                  <HiOutlineCash />
+                </span>
+                <span> Withdrawal</span>
+              </Link>
+              <Link to="/">
+                <span>
+                  <AiOutlineUserAdd />
+                </span>
+                <span> Referrals</span>
+              </Link>
+            </div>
+            <Routes>
+              <Route index element={<DashHome />} />
+              <Route path="dashboard/profile" element={<Profile />} />
+              <Route path="dashboard/deposits" element={<DepoHistory />} />
+              <Route path="dashboard/withdrawals" element={<WithHistory />} />
+              <Route path="dashboard/withdraw" element={<Witdraw />} />
+            </Routes>
           </div>
-          <div className="flex justify-end">
-            <FaUserNurse />
+
+          <div className="dsh_footer grid grid-cols-3 mt-4`">
+            <div className="rsv">
+              <p>© 2020 tradecorpmarketing.com All Rights Reserved.</p>
+            </div>
+            <div className="logo">
+              <Logo />
+            </div>
+            <div className="contact text-right">
+              <p>support@cryptojetmarketing.com</p>
+              <p>+01536373838939</p>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="side_nav h-full mt-4">
-        <div className="side_nav_lis py-8 h-full flex flex-col items-center">
-          <Link to="/dashboard" className="py-8">
-            <span>
-              <MdAccountBalance />
-            </span>
-            <span>Account</span>
-          </Link>
-          <Link to="/dashboard">
-            <span>
-              <FaMoneyBillAlt />
-            </span>
-            <span>Deposit</span>
-          </Link>
-          <Link to="/dashboard">
-            <span>
-              <HiOutlineCash />
-            </span>
-            <span> Withdrawal</span>
-          </Link>
-          <Link to="/dashboard">
-            <span>
-              <AiOutlineUserAdd />
-            </span>
-            <span> Referrals</span>
-          </Link>
-        </div>
-        <div className="chart">
-          <coingecko-coin-compare-chart-widget
-            coin-ids="bitcoin,ethereum,eos,ripple,litecoin"
-            currency="usd"
-            locale="en"
-          ></coingecko-coin-compare-chart-widget>
-        </div>
-      </div>
-      <div className="acc_ov my-14">
-        <p>Account Overview</p>
-        <p className="pt-4">
-          only make deposite to the bitcoin wallet address below
-        </p>
-        <p>tywey6r2783yr89293y7r2ehf98423r2hoi3uer0293uri329</p>
-      </div>
-      <div className="user_dtl grid grid-cols-3 py-6 gap-6">
-        <UserDetails
-          icon={<FaUserAlt className="dtl_icon_ic" />}
-          title="Your username:"
-          detail="KETEMNGOG"
-        />
-        <UserDetails
-          icon={<FaRegCalendarAlt className="dtl_icon_ic" />}
-          title="Registration date:"
-          detail="2022-07-11 07:38:51"
-        />
-        <UserDetails
-          icon={<FaClock className="dtl_icon_ic" />}
-          title="Last Access:"
-          detail="0000-00-0000-00"
-        />
-      </div>
-      <div className="user_dtl grid grid-cols-3 gap-6">
-        <AccDetail
-          icon={<GrBitcoin className="dtl_icon_ic" />}
-          title="$0.00"
-          detail="ACTIVE DEPOSIT"
-          button="MAKE DEPOSIT"
-        />
-        <AccDetail
-          icon={<BsCashCoin className="dtl_icon_ic" />}
-          title="$0.00"
-          detail="YOUR BALANCE"
-          button="WITHDRAW FUNDS"
-        />
-        <AccDetail
-          icon={<RiHandCoinFill className="dtl_icon_ic" />}
-          title="$0.00"
-          detail="Active Deposits"
-          button="MY DEPOSIT"
-        />
-      </div>
-      <div className="acc_ov my-14">
-        <p>YOUR DEPOSIT/WITHDRAWALS</p>
-        <p className="pt-4">
-          only make deposite to the bitcoin wallet address below
-        </p>
-        <p>tywey6r2783yr89293y7r2ehf98423r2hoi3uer0293uri329</p>
-      </div>
-      <div className="user_dtl grid grid-cols-2 gap-6 py-6">
-        <UserDetails
-          icon={<RiCoinsLine className="dtl_icon_ic" />}
-          title="$0.00:"
-          detail="LAST DEPOSIT"
-        />
-        <UserDetails
-          icon={<GiCoins className="dtl_icon_ic" />}
-          title="$0.00:"
-          detail="TOTAL DEPOSIT"
-        />
-        <UserDetails
-          icon={<IoCashOutline className="dtl_icon_ic" />}
-          title="$0.00:"
-          detail="TOTAL WITHDRAWAL"
-        />
-        <UserDetails
-          icon={<BsCashStack className="dtl_icon_ic" />}
-          title="$0.00:"
-          detail="LAST WITHDRAWAL"
-        />
-      </div>
-      <div className="dsh_footer grid grid-cols-3 mt-4`">
-        <div className="rsv">
-          <p>© 2020 tradecorpmarketing.com All Rights Reserved.</p>
-        </div>
-        <div className="logo">
-          <Logo />
-        </div>
-        <div className="contact text-right">
-          <p>support@cryptojetmarketing.com</p>
-          <p>+01536373838939</p>
-        </div>
-      </div>
-    </StyledDash>
+        </StyledDash>
+      ) : (
+        <Navigate to="/login" />
+      )}
+    </div>
   );
 };
 

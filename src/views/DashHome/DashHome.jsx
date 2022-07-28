@@ -1,25 +1,16 @@
 import React from "react";
-import Logo from "../../components/Logo/Logo";
-import { StyledDash } from "./StyledDash";
-import { Link } from "react-router-dom";
-import { MdAccountBalance } from "react-icons/md";
 import {
   FaClock,
-  FaMoneyBillAlt,
   FaRegCalendarAlt,
   FaUserAlt,
-  FaUserNurse,
 } from "react-icons/fa";
 import { RiCoinsLine, RiHandCoinFill } from "react-icons/ri";
 import { BsCashCoin, BsCashStack } from "react-icons/bs";
 import { GiCoins } from "react-icons/gi";
 import { IoCashOutline } from "react-icons/io5";
 import { GrBitcoin } from "react-icons/gr";
-import { HiOutlineCash } from "react-icons/hi";
-import { AiOutlineUserAdd } from "react-icons/ai";
 import UserDetails from "../../components/UserDetails/UserDetail";
 import AccDetail from "../../components/AccDetails/AccDetail";
-import { StyledDashHome } from "./StyledDashHome";
 
 const DashHome = () => {
   return (
@@ -103,18 +94,6 @@ const DashHome = () => {
           title="$0.00:"
           detail="LAST WITHDRAWAL"
         />
-      </div>
-      <div className="dsh_footer grid grid-cols-3 mt-4`">
-        <div className="rsv">
-          <p>© 2020 tradecorpmarketing.com All Rights Reserved.</p>
-        </div>
-        <div className="logo">
-          <Logo />
-        </div>
-        <div className="contact text-right">
-          <p>support@cryptojetmarketing.com</p>
-          <p>+01536373838939</p>
-        </div>
       </div>
     </div>
   );
