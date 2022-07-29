@@ -31,6 +31,7 @@ export const Styledprofile = styled.div`
       p:nth-child(1) {
         font-size: 1.6rem;
         font-weight: 500;
+        text-transform:capitalize;
       }
     }
   }

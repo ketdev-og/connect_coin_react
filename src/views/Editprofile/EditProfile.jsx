@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Inputs, { SelectInput } from "../../components/inputs/Inputs";
 import Logo from "../../components/Logo/Logo";
-import { StyledRegister } from "./StyledRegister";
+import { StyledEditProfile } from "./StyledEditProfile";
 import { Form, Formik, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import loadingSvg from "../../assets/img/loading.svg";
-import {Link, useNavigate} from "react-router-dom"
+import {useLocation, useNavigate} from "react-router-dom"
 
 const initialValues = {
   first_name: "",
@@ -44,27 +44,33 @@ const validationSchema = Yup.object({
     .required("required"),
 });
 
-const Register = () => {
+const EditProfile = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [user, setUser] = useState({});
   const navigate = useNavigate();
-
+  const location = useLocation()
+  const data = location.state?.data;
+  
+  useEffect(() => {
+   
+    setUser(data)
+  }, [data])
+  
   const onSubmit = async (values) => {
     console.log(values);
     try {
       setLoading(true)
       axios
-        .post("http://localhost:5000/v1/auth/register", {
+        .post("http://localhost:5000/v1/auth/update_user", {
           ...values,
         })
         .then((response) => {
           console.log(response);
           setLoading(false)
           setErrorMessage("")
-          localStorage.setItem('user', response.data.token);
-          localStorage.setItem("user", response.data.token);
           if (response.status === 200) {
-            navigate("/dashboard");
+            navigate("/profile");
           }
          
         })
@@ -78,7 +84,7 @@ const Register = () => {
   };
 
   return (
-    <StyledRegister className="w-full bg-white px-60">
+    <StyledEditProfile className="w-full bg-white px-20">
       <div className="reg_con rounded my-10 p-8">
         <div className="reg_logo flex flex-col items-center rounded">
           <Logo />
@@ -100,6 +106,7 @@ const Register = () => {
                   id={"FirstName"}
                   label={"FirstName"}
                   name={"first_name"}
+                  value={user.first_name}
                 />
                 <div className="fr_erm">
                   <ErrorMessage name="first_name" />
@@ -112,6 +119,7 @@ const Register = () => {
                   id={"LastName"}
                   placeholder={"Doe"}
                   name={"last_name"}
+                  value={user.last_name}
                 />
                 <div className="fr_erm">
                   <ErrorMessage name="last_name" />
@@ -126,6 +134,7 @@ const Register = () => {
                   id={"UserName"}
                   label={"UserName"}
                   name={"username"}
+                  value={user.username}
                 />
                 <div className="fr_erm">
                   <ErrorMessage name="username" />
@@ -140,6 +149,7 @@ const Register = () => {
                   id={"Email"}
                   label={"Email"}
                   name={"email"}
+                  value={user.email}
                 />
                 <div className="fr_erm">
                   <ErrorMessage name="email" />
@@ -153,6 +163,7 @@ const Register = () => {
                   name={"country"}
                   type={"text"}
                   children={["india", "USA", "Nigeria"]}
+                  value={user.country}
                 />
                 <div className="fr_erm">
                   <ErrorMessage name="country" />
@@ -164,6 +175,7 @@ const Register = () => {
                   name={"state"}
                   type={"text"}
                   children={["New York", "Texas"]}
+                  value={user.state}
                 />
                 <div className="fr_erm">
                   <ErrorMessage name="state" />
@@ -177,6 +189,7 @@ const Register = () => {
                   type={"text"}
                   id={"City"}
                   placeholder={"New York"}
+                  value={user.city}
                 />
                 <div className="fr_erm">
                   <ErrorMessage name="city" />
@@ -191,6 +204,7 @@ const Register = () => {
                   id={"Phone Number"}
                   label={"Phone Number"}
                   name={"phone"}
+                  value={user.phone}
                 />
                 <div className="fr_erm">
                   <ErrorMessage name="phone" />
@@ -204,55 +218,17 @@ const Register = () => {
                   id={"Account"}
                   name={"account"}
                   label={"Account"}
+                  value={user.account}
                 />
                 <div className="fr_erm">
                   <ErrorMessage name="account" />
                 </div>
               </div>
             </div>
-            <div className="mt-4">
-              <div className="">
-                <Inputs
-                  placeholder={"********"}
-                  type={"password"}
-                  id={"Password"}
-                  name={"password"}
-                  label={"Password"}
-                />
-                <div className="fr_erm">
-                  <ErrorMessage name="password" />
-                </div>
-              </div>
-            </div>
-            <div className="mt-2">
-              <div className="">
-                <Inputs
-                  placeholder={"********"}
-                  label={"Confirm Password"}
-                  type={"password"}
-                  id={"Confrm Password"}
-                  name={"confirm_password"}
-                />
-                <div className="fr_erm">
-                  <ErrorMessage name="confirm_password" />
-                </div>
-              </div>
-            </div>
-            <div className="mt-6">
-              <span className="policy">
-                <input className="mr-2 leading-tight" type="checkbox" />I agree
-                to ConnectionCoin Marketing
-                <Link
-                  className="ml-2 inline-block align-baseline font-bold text-sm fg_policy"
-                 to={"/"}
-                >
-                  Privacy Policy
-                </Link>
-              </span>
-            </div>
+        
             <div className="reg_btn flex justify-center mt-8">
               <button type="submit" className="btn">
-                Create Account{" "}
+                Update{" "}
                 {loading ? (
                   <img
                     srcSet={loadingSvg}
@@ -262,27 +238,11 @@ const Register = () => {
                 ) : null}
               </button>
             </div>
-            <div className="mt-2 flex justify-center">
-              <span className="policy">
-                Already have an account?
-                <Link
-                  className="ml-2 inline-block align-baseline font-bold text-sm fg_policy"
-                  to={"/"}
-                >
-                  Login
-                </Link>
-              </span>
-            </div>
-            <div className="mt-8">
-              <p className="cpy">
-                Copyright (c) 2022 ConnecCoin Trade All Rights Reserved
-              </p>
-            </div>
           </Form>
         </Formik>
       </div>
-    </StyledRegister>
+    </StyledEditProfile>
   );
 };
 
-export default Register;
+export default EditProfile;

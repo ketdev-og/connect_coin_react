@@ -40,7 +40,6 @@ const Login = () => {
           ...values,
         })
         .then((response) => {
-          console.log(response);
           setLoading(false);
           setErrorMessage("");
           localStorage.setItem("user", response.data.token);

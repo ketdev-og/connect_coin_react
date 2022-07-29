@@ -15,6 +15,7 @@ import Witdraw from "../Withdraw/Witdraw";
 import { AnimatePresence, motion } from "framer-motion";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import EditProfile from "../Editprofile/EditProfile";
 
 const containerVariant = {
   exit: {
@@ -63,9 +64,8 @@ const Dashboard = () => {
       setSetIsAuth(false);
     } else {
       axios(configuration)
-        .then((data) => {
-          setUser(data);
-          console.log(data);
+        .then((response) => {
+          setUser(response.data.user);
           setSetIsAuth(true);
         })
         .catch((err) => {
@@ -74,7 +74,7 @@ const Dashboard = () => {
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuth, token]);
+  }, []);
 
   return (
     <div>
@@ -87,7 +87,7 @@ const Dashboard = () => {
 
             <div className="us_dt mt-4">
               <div className="us_name">
-                <span>{user.data.first_name}</span>
+                <span>{user.first_name}</span>  <span>{user.last_name}</span>
               </div>
               <div className="welc">
                 <span>Welcome to your account</span>
@@ -106,7 +106,7 @@ const Dashboard = () => {
                       animate="show"
                       className="sub_nav"
                     >
-                      <Link to={"dashboard/profile"}>Profile</Link>
+                      <Link to={"/dashboard/profile"} state={{ data: user }}>Profile</Link>
                       <Link to={"/"}>Logout</Link>
                     </motion.ul>
                   )}
@@ -144,10 +144,11 @@ const Dashboard = () => {
             </div>
             <Routes>
               <Route index element={<DashHome />} />
-              <Route path="dashboard/profile" element={<Profile />} />
-              <Route path="dashboard/deposits" element={<DepoHistory />} />
-              <Route path="dashboard/withdrawals" element={<WithHistory />} />
-              <Route path="dashboard/withdraw" element={<Witdraw />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/deposits" element={<DepoHistory />} />
+              <Route path="/withdrawals" element={<WithHistory />} />
+              <Route path="/withdraw" element={<Witdraw />} />
+              <Route path="/editprofile" element={<EditProfile />} />
             </Routes>
           </div>
 

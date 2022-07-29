@@ -13,6 +13,11 @@ export const StyledDash = styled.div`
       gap: 3rem;
       grid-template-columns: 20% 60% 10%;
 
+      .us_name{
+        span{
+          text-transform: capitalize;
+        }
+      }
       .nav_icon{
         position:relative;
         cursor: pointer;
