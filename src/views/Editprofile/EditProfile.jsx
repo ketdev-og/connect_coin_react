@@ -8,54 +8,21 @@ import axios from "axios";
 import loadingSvg from "../../assets/img/loading.svg";
 import {useLocation, useNavigate} from "react-router-dom"
 
-const initialValues = {
-  first_name: "",
-  last_name: "",
-  username: "",
-  email: "",
-  country: "",
-  state: "",
-  city: "",
-  account: "",
-  phone: "",
-  password: "",
-  confirm_password: "",
-};
 
-const validationSchema = Yup.object({
-  first_name: Yup.string().required("required"),
-  last_name: Yup.string().required("required"),
-  username: Yup.string().required("required"),
-  email: Yup.string().email("invalid email address").required("required"),
-  country: Yup.string().required("required"),
-  state: Yup.string().required("required"),
-  city: Yup.string().required("required"),
-  account: Yup.string().required("required"),
-  phone: Yup.string().required("required"),
-  password: Yup.string()
-    .min(8, "at least 8 characters")
-    .matches(
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}$/,
-      "should conatin a upper and lower case letters and a number"
-    )
-    .required("required"),
-  confirm_password: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
-    .required("required"),
-});
 
 const EditProfile = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [user, setUser] = useState({});
-  const navigate = useNavigate();
   const location = useLocation()
-  const data = location.state?.data;
+  let data = location.state?.data;
+  const [user, setUser] = useState({data});
+  const navigate = useNavigate();
+ 
+ 
   
-  useEffect(() => {
-   
-    setUser(data)
-  }, [data])
+  useEffect(() => { 
+    
+  })
   
   const onSubmit = async (values) => {
     console.log(values);
@@ -84,6 +51,7 @@ const EditProfile = () => {
   };
 
   return (
+    
     <StyledEditProfile className="w-full bg-white px-20">
       <div className="reg_con rounded my-10 p-8">
         <div className="reg_logo flex flex-col items-center rounded">
@@ -93,8 +61,7 @@ const EditProfile = () => {
           <span>{errorMessage}</span>
         </div>
         <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
+          initialValues={data}
           onSubmit={onSubmit}
         >
           <Form action="" className="mt-2">
@@ -106,7 +73,6 @@ const EditProfile = () => {
                   id={"FirstName"}
                   label={"FirstName"}
                   name={"first_name"}
-                  value={user.first_name}
                 />
                 <div className="fr_erm">
                   <ErrorMessage name="first_name" />
