@@ -106,7 +106,7 @@ const Dashboard = () => {
                       animate="show"
                       className="sub_nav"
                     >
-                      <Link to={"/dashboard/profile"} state={{ data: user }}>Profile</Link>
+                      <Link to={"/dashboard/profile"}>Profile</Link>
                       <Link to={"/"}>Logout</Link>
                     </motion.ul>
                   )}

@@ -2,28 +2,25 @@ import React, { useEffect, useState } from "react";
 import Inputs, { SelectInput } from "../../components/inputs/Inputs";
 import Logo from "../../components/Logo/Logo";
 import { StyledEditProfile } from "./StyledEditProfile";
-import { Form, Formik, ErrorMessage } from "formik";
+import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import loadingSvg from "../../assets/img/loading.svg";
-import {useLocation, useNavigate} from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 
 
 const EditProfile = () => {
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const location = useLocation()
   let data = location.state?.data;
-  const [user, setUser] = useState({data});
+
   const navigate = useNavigate();
- 
- 
-  
-  useEffect(() => { 
-    
-  })
-  
+
+
+  const token = localStorage.getItem("user");
+
+
   const onSubmit = async (values) => {
     console.log(values);
     try {
@@ -31,34 +28,37 @@ const EditProfile = () => {
       axios
         .post("http://localhost:5000/v1/auth/update_user", {
           ...values,
+        }, {
+          headers: {
+            authorization: `${token}`,
+          }
         })
         .then((response) => {
           console.log(response);
           setLoading(false)
-          setErrorMessage("")
+
           if (response.status === 200) {
-            navigate("/profile");
+            navigate("/dashboard/profile");
           }
-         
+
         })
         .catch((err) => {
           setLoading(false)
-          setErrorMessage(err.response.data.error.message)
         });
     } catch (error) {
-      
+
     }
   };
 
   return (
-    
+
     <StyledEditProfile className="w-full bg-white px-20">
       <div className="reg_con rounded my-10 p-8">
         <div className="reg_logo flex flex-col items-center rounded">
           <Logo />
         </div>
         <div className="err_msg my-8 text-center text-red-600">
-          <span>{errorMessage}</span>
+
         </div>
         <Formik
           initialValues={data}
@@ -75,7 +75,7 @@ const EditProfile = () => {
                   name={"first_name"}
                 />
                 <div className="fr_erm">
-                  <ErrorMessage name="first_name" />
+
                 </div>
               </div>
               <div className="">
@@ -85,10 +85,10 @@ const EditProfile = () => {
                   id={"LastName"}
                   placeholder={"Doe"}
                   name={"last_name"}
-                  value={user.last_name}
+
                 />
                 <div className="fr_erm">
-                  <ErrorMessage name="last_name" />
+
                 </div>
               </div>
             </div>
@@ -100,10 +100,10 @@ const EditProfile = () => {
                   id={"UserName"}
                   label={"UserName"}
                   name={"username"}
-                  value={user.username}
+
                 />
                 <div className="fr_erm">
-                  <ErrorMessage name="username" />
+
                 </div>
               </div>
             </div>
@@ -115,10 +115,10 @@ const EditProfile = () => {
                   id={"Email"}
                   label={"Email"}
                   name={"email"}
-                  value={user.email}
+
                 />
                 <div className="fr_erm">
-                  <ErrorMessage name="email" />
+
                 </div>
               </div>
             </div>
@@ -129,10 +129,10 @@ const EditProfile = () => {
                   name={"country"}
                   type={"text"}
                   children={["india", "USA", "Nigeria"]}
-                  value={user.country}
+
                 />
                 <div className="fr_erm">
-                  <ErrorMessage name="country" />
+
                 </div>
               </div>
               <div>
@@ -141,10 +141,10 @@ const EditProfile = () => {
                   name={"state"}
                   type={"text"}
                   children={["New York", "Texas"]}
-                  value={user.state}
+
                 />
                 <div className="fr_erm">
-                  <ErrorMessage name="state" />
+
                 </div>
               </div>
 
@@ -155,10 +155,10 @@ const EditProfile = () => {
                   type={"text"}
                   id={"City"}
                   placeholder={"New York"}
-                  value={user.city}
+
                 />
                 <div className="fr_erm">
-                  <ErrorMessage name="city" />
+
                 </div>
               </div>
             </div>
@@ -170,10 +170,10 @@ const EditProfile = () => {
                   id={"Phone Number"}
                   label={"Phone Number"}
                   name={"phone"}
-                  value={user.phone}
+
                 />
                 <div className="fr_erm">
-                  <ErrorMessage name="phone" />
+
                 </div>
               </div>
             </div>
@@ -184,14 +184,14 @@ const EditProfile = () => {
                   id={"Account"}
                   name={"account"}
                   label={"Account"}
-                  value={user.account}
+
                 />
                 <div className="fr_erm">
-                  <ErrorMessage name="account" />
+
                 </div>
               </div>
             </div>
-        
+
             <div className="reg_btn flex justify-center mt-8">
               <button type="submit" className="btn">
                 Update{" "}
