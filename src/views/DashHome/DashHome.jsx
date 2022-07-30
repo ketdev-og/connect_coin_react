@@ -62,7 +62,7 @@ const DashHome = () => {
         <AccDetail
           icon={<RiHandCoinFill className="dtl_icon_ic" />}
           title="$0.00"
-          detail="Active Deposits"
+          detail="ADDED BONUS"
           button="MY DEPOSIT"
         />
       </div>

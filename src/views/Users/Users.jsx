@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Tables from "../../components/Tables/Tables";
 import { StyledUsers } from "./StyledUsers";
 
@@ -24,11 +25,11 @@ const columns = [
 
 const Users = () => {
   const [userRows, setUserRows] = useState([]);
+  const navigate = useNavigate()
   useEffect(() => {
     axios.get("http://localhost:5000/v1/auth/users").then((response) => {
       const users = response.data.user;
       setUserRows(users)
-      console.log(userRows);
     });
    
   },[]);
@@ -36,7 +37,7 @@ const Users = () => {
   return (
     <StyledUsers>
       <p className="my-10 his_head">Users</p>
-      <Tables rows={userRows} columns={columns}/>
+      <Tables rows={userRows} columns={columns} link={()=>navigate('/')}/>
     </StyledUsers>
   );
 };
