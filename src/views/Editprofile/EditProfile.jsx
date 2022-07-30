@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import Inputs, { SelectInput } from "../../components/inputs/Inputs";
 import Logo from "../../components/Logo/Logo";
 import { StyledEditProfile } from "./StyledEditProfile";
 import { Form, Formik } from "formik";
-import * as Yup from "yup";
+
 import axios from "axios";
 import loadingSvg from "../../assets/img/loading.svg";
 import { useLocation, useNavigate } from "react-router-dom"

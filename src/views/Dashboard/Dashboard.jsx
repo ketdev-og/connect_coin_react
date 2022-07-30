@@ -16,6 +16,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import EditProfile from "../Editprofile/EditProfile";
+import Admin from "../Admin/Admin";
+import Users from "../Users/Users";
 
 const containerVariant = {
   exit: {
@@ -123,13 +125,13 @@ const Dashboard = () => {
                 </span>
                 <span>Account</span>
               </Link>
-              <Link to="dashboard/deposits">
+              <Link to="/dashboard/deposits">
                 <span>
                   <FaMoneyBillAlt />
                 </span>
                 <span>Deposit</span>
               </Link>
-              <Link to="dashboard/withdraw">
+              <Link to="/dashboard/withdraw">
                 <span>
                   <HiOutlineCash />
                 </span>
@@ -149,6 +151,8 @@ const Dashboard = () => {
               <Route path="/withdrawals" element={<WithHistory />} />
               <Route path="/withdraw" element={<Witdraw />} />
               <Route path="/editprofile" element={<EditProfile />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/users" element={<Users />} />
             </Routes>
           </div>
 

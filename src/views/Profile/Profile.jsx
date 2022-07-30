@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaUser } from "react-icons/fa";
 import { Styledprofile } from "./Styledprofile";
-import { Link, useLocation } from "react-router-dom";
+import { Link} from "react-router-dom";
 import axios from "axios";
 
 const Profile = () => {
