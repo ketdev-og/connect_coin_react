@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Colors } from "../../constants/colors";
-import { Link } from "react-router-dom";
+
 
 export default function StickyHeadTable({ rows, columns, link }) {
   const [page, setPage] = React.useState(0);

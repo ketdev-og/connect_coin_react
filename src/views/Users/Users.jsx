@@ -37,7 +37,7 @@ const Users = () => {
   return (
     <StyledUsers>
       <p className="my-10 his_head">Users</p>
-      <Tables rows={userRows} columns={columns} link={()=>navigate('/')}/>
+      <Tables rows={userRows} columns={columns} link={()=>navigate('/dashboard/user')}/>
     </StyledUsers>
   );
 };

@@ -18,6 +18,7 @@ import { Navigate } from "react-router-dom";
 import EditProfile from "../Editprofile/EditProfile";
 import Admin from "../Admin/Admin";
 import Users from "../Users/Users";
+import User from "../User/User";
 
 const containerVariant = {
   exit: {
@@ -153,6 +154,7 @@ const Dashboard = () => {
               <Route path="/editprofile" element={<EditProfile />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/users" element={<Users />} />
+              <Route path="/user" element={<User />} />
             </Routes>
           </div>
 
