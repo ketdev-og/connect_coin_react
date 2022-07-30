@@ -5,6 +5,18 @@ import ProImg from "../../assets/img/pro_head.jpg";
 export const Styledprofile = styled.div`
  
   padding: 1rem;
+  .pro_btn{
+    a{
+      background-color:${Colors.primary};
+      padding: 0.6rem 2rem;
+      color:${Colors.secondary};
+      border-radius:10px;
+      transition:all 300ms ease-in;
+      &:hover{
+        background-color:${Colors.primary_dark};
+      }
+    }
+  }
   .pro_t_img {
     height: 150px;
     border-radius: 20px;

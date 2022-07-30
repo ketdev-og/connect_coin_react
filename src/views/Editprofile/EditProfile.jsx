@@ -22,7 +22,6 @@ const EditProfile = () => {
 
 
   const onSubmit = async (values) => {
-    console.log(values);
     try {
       setLoading(true)
       axios
@@ -34,7 +33,6 @@ const EditProfile = () => {
           }
         })
         .then((response) => {
-          console.log(response);
           setLoading(false)
 
           if (response.status === 200) {
