@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { BsCashStack } from "react-icons/bs";
-import { GiCoins } from "react-icons/gi";
+import { BsArrowBarRight, BsCashStack } from "react-icons/bs";
+import { GiCoinflip, GiCoins } from "react-icons/gi";
 import { IoCashOutline } from "react-icons/io5";
-import { RiCoinsLine } from "react-icons/ri";
+import { RiArrowRightLine, RiCoinsLine } from "react-icons/ri";
 import UserDetails from "../../components/UserDetails/UserDetail";
 import { Styledprofile } from "../Profile/Styledprofile";
 import { StyledUser } from "./StyledUser";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-
-
+import { Colors } from "../../constants/colors";
 
 const User = () => {
   const location = useLocation();
   const id = location.state.id;
   const [userData, setUserData] = useState({});
-  const navigation = useNavigate()
+  const navigation = useNavigate();
 
   useEffect(() => {
     axios
@@ -33,9 +32,8 @@ const User = () => {
         id: id,
       })
       .then((response) => {
-        console.log(response.data.user);
-        if(response.data.status === 200){
-          navigation('/dashboard/users');
+        if (response.data.status === 200) {
+          navigation("/dashboard/users");
         }
       });
   };
@@ -65,13 +63,29 @@ const User = () => {
         />
 
         <UserDetails
-          icon={<BsCashStack className="dtl_icon_ic" />}
+          icon={<GiCoinflip className="dtl_icon_ic" />}
           title="$0.00:"
           detail="BALANCE"
         />
       </div>
+      <div className="flex justify-end items-center mt-20">
+        <span className="text-gray-300 text-2xl">
+          Make deposit to {`${userData.first_name}  ${userData.last_name}`}
+        </span>
+        <span className="mx-4"
+          style={{
+            transform: "translateY(2px)",
+            padding: "0.6rem 1rem",
+            backgroundColor: Colors.primary,
+            color: 'white',
+            cursor:'pointer'
+          }}
+        >
+          <RiArrowRightLine />
+        </span>
+      </div>
       <Styledprofile>
-        <div className="pro_oth_dtl my-20">
+        <div className="pro_oth_dtl mb-20">
           <div className="each dark">
             <p>Full Name</p>
             <p
