@@ -8,11 +8,14 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { Colors } from "../../constants/colors";
+import {useNavigate} from "react-router-dom"
+
 
 
 export default function StickyHeadTable({ rows, columns, link }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const navigate = useNavigate();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -22,6 +25,11 @@ export default function StickyHeadTable({ rows, columns, link }) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const navigateProfile = (id) => {
+        return navigate('/dashboard/user', {state:{id:id}});
+  }
+
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -50,7 +58,7 @@ export default function StickyHeadTable({ rows, columns, link }) {
               .map((row) => {
                 return (
                  
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id} onClick={link}>
+                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id} onClick={()=>navigateProfile(row.id)}>
                       {columns.map((column) => {
                         const value = row[column.id];
                         return (
