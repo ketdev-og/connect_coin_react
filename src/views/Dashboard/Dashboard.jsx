@@ -19,6 +19,7 @@ import EditProfile from "../Editprofile/EditProfile";
 import Admin from "../Admin/Admin";
 import Users from "../Users/Users";
 import User from "../User/User";
+import Deposite from "../Deposite/Deposite";
 
 const containerVariant = {
   exit: {
@@ -155,6 +156,7 @@ const Dashboard = () => {
               <Route path="/admin" element={<Admin />} />
               <Route path="/users" element={<Users />} />
               <Route path="/user" element={<User />} />
+              <Route path="/deposit" element={<Deposite />} />
             </Routes>
           </div>
 

@@ -2,7 +2,7 @@ import { Field } from "formik";
 import React from "react";
 import { StyledInput } from "../Logo/StyledInput";
 
-const Inputs = ({ type, name, id, placeholder, label}) => {
+const Inputs = ({ type, name, id, placeholder, label, disabled}) => {
   return (
     <StyledInput className="mt-4">
       <label className="label_text" htmlFor={name}>
@@ -14,7 +14,7 @@ const Inputs = ({ type, name, id, placeholder, label}) => {
         type={type}
         name={name}
         placeholder={placeholder}
-       
+        disabled={disabled ? true : null}
       />
     </StyledInput>
   );

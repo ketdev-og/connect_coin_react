@@ -68,17 +68,24 @@ const User = () => {
           detail="BALANCE"
         />
       </div>
-      <div className="flex justify-end items-center mt-20">
+      <div
+        className="flex justify-end items-center mt-20"
+        onClick={() => {
+          navigation("/dashboard/deposit", { state: {id:userData.id,account:userData.account, amount:""} });
+        }}
+      >
         <span className="text-gray-300 text-2xl">
           Make deposit to {`${userData.first_name}  ${userData.last_name}`}
         </span>
-        <span className="mx-4"
+        <span
+          className="mx-4"
           style={{
             transform: "translateY(2px)",
             padding: "0.6rem 1rem",
             backgroundColor: Colors.primary,
-            color: 'white',
-            cursor:'pointer'
+            color: "white",
+            cursor: "pointer",
+            borderRadius: "10px",
           }}
         >
           <RiArrowRightLine />
