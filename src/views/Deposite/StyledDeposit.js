@@ -16,7 +16,7 @@ export const StyledDeposit = styled.div`
         color:${Colors.secondary};
         padding:0.6rem 0;
         border-radius:10px;
-        width:60%;
+        width:20%;
       }
       .reg_btn .btn:hover{
         background-color:${Colors.primary_dark}

@@ -47,7 +47,7 @@ const Deposite = () => {
               </div>
             </div>
 
-            <div className="reg_btn flex justify-center mt-8">
+            <div className="reg_btn flex justify-end mt-8">
               <button type="submit" className="btn">
                 Send{" "}
                 {loading ? (
