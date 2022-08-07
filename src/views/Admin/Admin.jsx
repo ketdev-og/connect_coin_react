@@ -7,7 +7,7 @@ const Admin = () => {
   const [counts, setCounts] = useState({})
   
   useEffect(() => {
-    axios.get("http://localhost:5000/v1/auth/counts").then((response) => {
+    axios.get("http://localhost:8660/v1/auth/counts").then((response) => {
       console.log(response.data.counts);
       setCounts(response.data.counts)
     });
@@ -18,13 +18,13 @@ const Admin = () => {
         <BasicCard title={"USERS"} amount={counts.userCount} to={"/dashboard/users"} />
         <BasicCard
           title={"WITHDRAWALS"}
-          amount={"20"}
-          to={"/dashboard/withdrawals"}
+          amount={counts.withdrawalCount}
+          to={"/dashboard/admin/withdrawals"}
         />
         <BasicCard
           title={"DEPOSITS"}
-          amount={"20"}
-          to={"/dashboard/deposits"}
+          amount={counts.depositCount}
+          to={"/dashboard/admin/deposits"}
         />
       </div>
     </StyledAdmin>

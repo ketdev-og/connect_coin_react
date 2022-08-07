@@ -54,7 +54,7 @@ const Register = () => {
     try {
       setLoading(true)
       axios
-        .post("http://localhost:5000/v1/auth/register", {
+        .post("http://localhost:8660/v1/auth/register", {
           ...values,
         })
         .then((response) => {

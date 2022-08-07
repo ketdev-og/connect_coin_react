@@ -36,7 +36,7 @@ const Login = () => {
     try {
       setLoading(true);
       axios
-        .post("http://localhost:5000/v1/auth/login", {
+        .post("http://localhost:8660/v1/auth/login", {
           ...values,
         })
         .then((response) => {

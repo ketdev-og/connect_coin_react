@@ -1,20 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Inputs, { SelectInput } from "../../components/inputs/Inputs";
 import { StyledDeposit } from "./StyledDeposit";
 import loadingSvg from "../../assets/img/loading.svg";
 import { Form, Formik } from "formik";
+import axios from "axios";
 const Deposite = () => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const data = location.state;
 
-  const onSubmit = async (values) => {
-    console.log(values);
-  };
+  const navigate = useNavigate()
+  
   useEffect(() => {
     console.log(data);
   }, []);
+
+  const onSubmit = async (values) => {
+    console.log(values);
+    try {
+      setLoading(true);
+      axios
+        .post("http://localhost:8660/v1/auth/add/deposit", {
+          ...values, id:data.id
+        })
+        .then((response) => {
+          setLoading(false);
+          localStorage.setItem("user", response.data.token);
+          if (response.status === 200) {
+            navigate("/dashboard/admin");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {}
+  };
   return (
     <StyledDeposit>
       <div className="mkd_intro">

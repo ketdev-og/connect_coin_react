@@ -26,7 +26,7 @@ const Users = () => {
   const [userRows, setUserRows] = useState([]);
   
   useEffect(() => {
-    axios.get("http://localhost:5000/v1/auth/users").then((response) => {
+    axios.get("http://localhost:8660/v1/auth/users").then((response) => {
       const users = response.data.user;
       setUserRows(users)
     });

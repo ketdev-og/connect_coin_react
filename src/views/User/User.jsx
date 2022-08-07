@@ -18,7 +18,7 @@ const User = () => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/v1/auth/userbyid", {
+      .post("http://localhost:8660/v1/auth/userbyid", {
         id: id,
       })
       .then((response) => {
@@ -28,7 +28,7 @@ const User = () => {
 
   const deleteUser = (id) => {
     axios
-      .post("http://localhost:5000/v1/auth/deleteuser", {
+      .post("http://localhost:8660/v1/auth/deleteuser", {
         id: id,
       })
       .then((response) => {

@@ -20,6 +20,8 @@ import Admin from "../Admin/Admin";
 import Users from "../Users/Users";
 import User from "../User/User";
 import Deposite from "../Deposite/Deposite";
+import AllDepoHistory from "../AllDepo/AllDepoHistory";
+import AllWithHistory from "../AllWith/AllDepoHistory";
 
 const containerVariant = {
   exit: {
@@ -57,7 +59,7 @@ const Dashboard = () => {
   const token = localStorage.getItem("user");
   const configuration = {
     method: "get",
-    url: "http://localhost:5000/v1/auth/user",
+    url: "http://localhost:8660/v1/auth/user",
     headers: {
       authorization: `${token}`,
     },
@@ -133,17 +135,17 @@ const Dashboard = () => {
                 </span>
                 <span>Deposit</span>
               </Link>
-              <Link to="/dashboard/withdraw">
+              <Link to="/dashboard/withdrawals">
                 <span>
                   <HiOutlineCash />
                 </span>
                 <span> Withdrawal</span>
               </Link>
-              <Link to="/">
+              <Link to="/dashboard/admin">
                 <span>
                   <AiOutlineUserAdd />
                 </span>
-                <span> Referrals</span>
+                <span> Admin</span>
               </Link>
             </div>
             <Routes>
@@ -157,10 +159,13 @@ const Dashboard = () => {
               <Route path="/users" element={<Users />} />
               <Route path="/user" element={<User />} />
               <Route path="/deposit" element={<Deposite />} />
+              <Route path="/admin/deposits" element={<AllDepoHistory />} />
+              <Route path="/admin/withdrawals" element={<AllWithHistory />} />
+              <Route path="/admin" element={<Admin />} />
             </Routes>
           </div>
 
-          <div className="dsh_footer grid grid-cols-3 mt-4`">
+          <div className="dsh_footer grid grid-cols-3">
             <div className="rsv">
               <p>© 2020 tradecorpmarketing.com All Rights Reserved.</p>
             </div>

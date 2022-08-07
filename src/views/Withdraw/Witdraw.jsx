@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SpringModal from "../../components/Modal/Modal";
 import { StyledWithdraw } from "./StyledWithdraw";
 import bitcoin from "../../assets/img/Bitcoin.png";
@@ -10,8 +10,46 @@ import wire from "../../assets/img/wire.svg";
 import Inputs from "../../components/inputs/Inputs";
 import { Form, Formik } from "formik";
 import Button from "../../components/Button/Button";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
+
+const initialValues = {
+  paymentmethod: "",
+  account: "",
+  amount: "",
+};
 const Witdraw = () => {
+  useEffect(() => {}, []);
+  const token = localStorage.getItem("user");
+
+  const onSubmit = async (values) => {
+    console.log(values);
+    try {
+      axios
+        .post(
+          "http://localhost:8660/v1/auth/add/withdraw",
+          {
+            ...values,
+          },
+          {
+            headers: {
+              authorization: `${token}`,
+            },
+          }
+        )
+        .then((response) => {
+          localStorage.setItem("user", response.data.token);
+          if (response.status === 200) {
+            console.log(response);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {}
+  };
+
   return (
     <StyledWithdraw>
       <div className="wit_top">
@@ -38,8 +76,15 @@ const Witdraw = () => {
           <div className="flex justify-center">
             <img src={bitcoin} alt="" className="pay_logo w-20 h-20 " />
           </div>
-          <Formik>
+          <Formik initialValues={initialValues} onSubmit={onSubmit}>
             <Form>
+              <Inputs
+                value="bitcoin"
+                label={""}
+                type={"hidden"}
+                name={"paymentamount"}
+                id={"paymentamount"}
+              />
               <div className="mt-4">
                 <div className="">
                   <Inputs
@@ -55,17 +100,24 @@ const Witdraw = () => {
                   <Inputs
                     label={"Wallet Address"}
                     type={"text"}
-                    name={"wallet"}
-                    id={"wallet"}
+                    name={"account"}
+                    id={"account"}
                   />
                 </div>
               </div>
-              <div className="mt-4">
-                <Button
-                  outline={false}
-                  text={"Proceed"}
-                  styles={"text-center"}
-                />
+              <div className="reg_btn flex justify-center mt-8">
+                <button
+                  type="submit"
+                  className="btn"
+                  style={{
+                    backgroundColor: "#ec5630",
+                    color: "white",
+                    padding: "0.6rem 2rem",
+                    borderRadius: "10px",
+                  }}
+                >
+                  Proceed{" "}
+                </button>
               </div>
             </Form>
           </Formik>

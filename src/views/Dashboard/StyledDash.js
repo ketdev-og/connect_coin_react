@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Colors } from "../../constants/colors";
 export const StyledDash = styled.div`
   padding: 0 1rem;
+  position:relative;
 
   .dash_header {
     .ds_logo {
@@ -129,6 +130,7 @@ export const StyledDash = styled.div`
   }
 
   .dsh_footer{
+    margin-top:20rem;
     background-color:${Colors.secondary_dark};
     padding:2rem;
     div{
