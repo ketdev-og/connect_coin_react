@@ -32,7 +32,7 @@ const DepoHistory = () => {
       const deposits = response.data.deposits;
       setDepositRows(deposits);
     });
-  }, []);
+  },[token]);
   return (
     <StyledDepoHistory>
       <p className="my-10 his_head">Deopsit History</p>

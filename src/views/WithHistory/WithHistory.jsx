@@ -33,7 +33,7 @@ const WithHistory = () => {
       console.log(userWithdraws);
       setWithRows(userWithdraws);
     });
-  },[]);
+  },[token]);
 
   return (
     <StyledWithHistory>

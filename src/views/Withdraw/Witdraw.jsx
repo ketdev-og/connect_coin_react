@@ -20,9 +20,7 @@ const initialValues = {
   amount: "",
 };
 const Witdraw = () => {
-  useEffect(() => {}, []);
   const token = localStorage.getItem("user");
-
   const onSubmit = async (values) => {
     console.log(values);
     try {
@@ -39,7 +37,6 @@ const Witdraw = () => {
           }
         )
         .then((response) => {
-          localStorage.setItem("user", response.data.token);
           if (response.status === 200) {
             console.log(response);
           }
