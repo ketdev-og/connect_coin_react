@@ -50,7 +50,7 @@ const Deposite = () => {
                   placeholder={"xxxxxxxx"}
                   type={"text"}
                   id={"account"}
-                  label={"Account"}
+                  label={"Wallet Address"}
                   name={"account"}
                   disabled={true}
                 />

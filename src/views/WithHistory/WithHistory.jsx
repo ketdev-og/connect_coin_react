@@ -1,8 +1,9 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import Tables from '../../components/Tables/Tables'
-import { StyledWithHistory } from './StyledWithHistory'
-
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Tables from "../../components/Tables/Tables";
+import { StyledUser } from "../User/StyledUser";
+import { StyledWithHistory } from "./StyledWithHistory";
 
 const columns = [
   { id: "account", label: "Account", minWidth: 100 },
@@ -29,19 +30,21 @@ const WithHistory = () => {
 
   useEffect(() => {
     axios(configuration).then((response) => {
-      const {userWithdraws} = response.data;
+      const { userWithdraws } = response.data;
       console.log(userWithdraws);
       setWithRows(userWithdraws);
     });
-  },[token]);
+  }, [token]);
 
   return (
     <StyledWithHistory>
-          <p className='my-10 his_head'>Withdrawal History</p>
-         <Tables rows={withRows} columns={columns}/>
+      <p className="my-10 his_head">Withdrawal History</p>
+      <StyledUser className="flex justify-end my-8">
+        <Link className="del_btn" to={"/dashboard/withdraw"}>Withdraw</Link>
+      </StyledUser>
+      <Tables rows={withRows} columns={columns} />
     </StyledWithHistory>
-   
-  )
-}
+  );
+};
 
-export default WithHistory
+export default WithHistory;
