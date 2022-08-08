@@ -12,6 +12,15 @@ const columns = [
     label: "Created",
     minWidth: 100,
   },
+  {
+    id:"status",
+    label:"Status",
+    minWidth: 100,
+  },
+  {
+    id:"button",
+    minWidth: 100,
+  }
 ];
 
 const AllDepoHistory = () => {

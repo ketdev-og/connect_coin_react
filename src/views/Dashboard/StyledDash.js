@@ -145,4 +145,33 @@ export const StyledDash = styled.div`
       
     }
   }
+
+  @media (max-width: 900px) {
+    .dash_header .us_dt{
+      grid-template-columns:1fr 1fr;
+      gap:0;
+    }
+    .side_nav{
+        grid-template-columns:1fr;
+        gap:0;
+    }
+    .side_nav_lis{
+        display:none
+    }
+    .other_sd{
+      width:100%
+    }
+
+    .welc{
+      display:none;
+    }
+
+    .user_dtl{
+      grid-template-columns:repeat(1, 1fr)
+    }
+
+    .nav_icon{
+      display:none;
+    }
+  }
 `;

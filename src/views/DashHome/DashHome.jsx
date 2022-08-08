@@ -15,13 +15,7 @@ import AccDetail from "../../components/AccDetails/AccDetail";
 const DashHome = () => {
   return (
     <div className="other_sd">
-      <div className="chart">
-        <coingecko-coin-compare-chart-widget
-          coin-ids="bitcoin,ethereum,eos,ripple,litecoin"
-          currency="usd"
-          locale="en"
-        ></coingecko-coin-compare-chart-widget>
-      </div>
+      
       <div className="acc_ov my-14">
         <p>Account Overview</p>
         <p className="pt-4">

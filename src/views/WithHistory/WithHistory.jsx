@@ -14,6 +14,11 @@ const columns = [
     label: "Created",
     minWidth: 100,
   },
+  {
+    id: "status",
+    label: "Status",
+    minWidth: 100,
+  },
 ];
 const WithHistory = () => {
   const [withRows, setWithRows] = useState([]);
@@ -31,11 +36,12 @@ const WithHistory = () => {
   useEffect(() => {
     axios(configuration).then((response) => {
       const { userWithdraws } = response.data;
-      console.log(userWithdraws);
+      console.log(response.data);
       setWithRows(userWithdraws);
+     
     });
   }, [token]);
-
+ 
   return (
     <StyledWithHistory>
       <p className="my-10 his_head">Withdrawal History</p>

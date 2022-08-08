@@ -3,7 +3,7 @@ import Logo from "../../components/Logo/Logo";
 import { StyledDash } from "./StyledDash";
 import { Link, Route, Routes } from "react-router-dom";
 import { MdAccountBalance } from "react-icons/md";
-import { FaMoneyBillAlt, FaUserNurse } from "react-icons/fa";
+import { FaHamburger, FaMoneyBillAlt, FaUserNurse } from "react-icons/fa";
 
 import { HiOutlineCash } from "react-icons/hi";
 import { AiOutlineUserAdd } from "react-icons/ai";
@@ -22,6 +22,8 @@ import User from "../User/User";
 import Deposite from "../Deposite/Deposite";
 import AllDepoHistory from "../AllDepo/AllDepoHistory";
 import AllWithHistory from "../AllWith/AllDepoHistory";
+import { BsMenuButton } from "react-icons/bs";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const containerVariant = {
   exit: {
@@ -117,6 +119,9 @@ const Dashboard = () => {
                     </motion.ul>
                   )}
                 </AnimatePresence>
+              </div>
+              <div className="ham flex justify-end">
+                <GiHamburgerMenu style={{fontSize:"1.6rem"}}/>
               </div>
             </div>
           </div>
