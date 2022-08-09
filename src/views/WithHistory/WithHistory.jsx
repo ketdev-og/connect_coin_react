@@ -23,24 +23,26 @@ const columns = [
 const WithHistory = () => {
   const [withRows, setWithRows] = useState([]);
 
-  const token = localStorage.getItem("user");
+ 
 
-  const configuration = {
-    method: "get",
-    url: "http://localhost:8660/v1/auth/user/withdraw",
-    headers: {
-      authorization: `${token}`,
-    },
-  };
+ 
 
   useEffect(() => {
+    const token = localStorage.getItem("user");
+    const configuration = {
+      method: "get",
+      url: "http://localhost:8660/v1/auth/user/withdraw",
+      headers: {
+        authorization: `${token}`,
+      },
+    };
     axios(configuration).then((response) => {
       const { userWithdraws } = response.data;
       console.log(response.data);
       setWithRows(userWithdraws);
      
     });
-  }, [token]);
+  }, []);
  
   return (
     <StyledWithHistory>

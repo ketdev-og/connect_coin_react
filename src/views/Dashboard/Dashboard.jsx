@@ -23,7 +23,8 @@ import Deposite from "../Deposite/Deposite";
 import AllDepoHistory from "../AllDepo/AllDepoHistory";
 import AllWithHistory from "../AllWith/AllDepoHistory";
 import { BsMenuButton } from "react-icons/bs";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { GiCancel, GiHamburgerMenu } from "react-icons/gi";
+import { Colors } from "../../constants/colors";
 
 const containerVariant = {
   exit: {
@@ -49,13 +50,44 @@ const containerVariant = {
   },
 };
 
+const hamVariant = {
+  exit: {
+    opacity: 0,
+    x: "100vw",
+    transition: {
+      type: "tween",
+      delay: 0.1,
+    },
+  },
+  hidden: {
+    x: "100vw",
+    opacity: 0,
+  },
+
+  show: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      type: "tween",
+      delay: 0.1,
+    },
+  },
+};
+
+
+
 const Dashboard = () => {
   const [showTradeNav, setTradeNav] = useState(false);
+  const [showHamNav, setHamNav] = useState(false);
   const [isAuth, setSetIsAuth] = useState(true);
   const [user, setUser] = useState({});
 
   const toggleTradeNav = () => {
     setTradeNav(!showTradeNav);
+  };
+
+  const toggleHamNav = () => {
+    setHamNav(!showHamNav);
   };
 
   const token = localStorage.getItem("user");
@@ -95,7 +127,7 @@ const Dashboard = () => {
 
             <div className="us_dt mt-4">
               <div className="us_name">
-                <span>{user.first_name}</span>  <span>{user.last_name}</span>
+                <span>{user.first_name}</span> <span>{user.last_name}</span>
               </div>
               <div className="welc">
                 <span>Welcome to your account</span>
@@ -121,7 +153,7 @@ const Dashboard = () => {
                 </AnimatePresence>
               </div>
               <div className="ham flex justify-end">
-                <GiHamburgerMenu style={{fontSize:"1.6rem"}}/>
+                <GiHamburgerMenu style={{ fontSize: "1.6rem" }} onClick={toggleHamNav}/>
               </div>
             </div>
           </div>
@@ -182,6 +214,37 @@ const Dashboard = () => {
               <p>+01536373838939</p>
             </div>
           </div>
+          <AnimatePresence>
+            {showHamNav && (
+              <motion.div
+                variants={hamVariant}
+                initial="hidden"
+                animate="show"
+                className="ham_nav"
+              >
+               
+                  <div className="cancel flex justify-end p-6">
+                    <GiCancel
+                    onClick={toggleHamNav}
+                      style={{
+                        width: "2rem",
+                        height: "2rem",
+                        color: Colors.primary,
+                      }}
+                    />
+                  </div>
+                  <ul>
+                    <Link to={"/dashboard"}>Account</Link>
+                    <Link to={"/dashboard/deposits"}>Deposits</Link>
+                    <Link to={"/dashboard/withdrawals"}>Withdrawals</Link>
+                    <Link to={"/dashboard/admin"}>Admin</Link>
+                    <Link to={"/dashboard/profile"}>Profile</Link>
+                    <Link to={"/"}>Logout</Link>
+                  </ul>
+               
+              </motion.div>
+            )}
+          </AnimatePresence>
         </StyledDash>
       ) : (
         <Navigate to="/login" />

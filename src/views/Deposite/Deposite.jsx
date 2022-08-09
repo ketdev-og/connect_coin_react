@@ -26,7 +26,7 @@ const Deposite = () => {
         })
         .then((response) => {
           setLoading(false);
-          localStorage.setItem("user", response.data.token);
+         
           if (response.status === 200) {
             navigate("/dashboard/admin");
           }

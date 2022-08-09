@@ -17,22 +17,22 @@ const columns = [
 const DepoHistory = () => {
   const [depositRows, setDepositRows] = useState([]);
 
-  const token = localStorage.getItem("user");
-
-  const configuration = {
-    method: "get",
-    url: "http://localhost:8660/v1/auth/user/deposit",
-    headers: {
-      authorization: `${token}`,
-    },
-  };
+ 
 
   useEffect(() => {
+    const token = localStorage.getItem("user");
+    const configuration = {
+      method: "get",
+      url: "http://localhost:8660/v1/auth/user/deposit",
+      headers: {
+        authorization: `${token}`,
+      },
+    };
     axios(configuration).then((response) => {
       const deposits = response.data.deposits;
       setDepositRows(deposits);
     });
-  },[token]);
+  },[]);
   return (
     <StyledDepoHistory>
       <p className="my-10 his_head">Deopsit History</p>

@@ -11,7 +11,7 @@ const Profile = () => {
   const token = localStorage.getItem("user");
   const configuration = {
     method: "get",
-    url: "http://localhost:5000/v1/auth/user",
+    url: "http://localhost:8660/v1/auth/user",
     headers: {
       authorization: `${token}`,
     },
