@@ -1,7 +1,8 @@
 import React from "react";
 import "./external/style.css";
 import "./external/slider.css";
-import { MarketData } from "react-tradingview-embed";
+import { MarketData, TickerTape } from "react-ts-tradingview-widgets";
+import { Link } from "react-router-dom";
 
 const OThome = () => {
   return (
@@ -13,17 +14,17 @@ const OThome = () => {
               <div className="top_nav1">
                 <div className="login1">
                   <section>
-                    <a href="external/login.html" id="log1">
+                    <Link to={"/login"} id="log1">
                       LOG IN
-                    </a>
+                    </Link>
                   </section>
                 </div>
 
                 <div className="login1">
                   <section>
-                    <a href="external/signup.hml" id="log1">
-                      SIGN UP
-                    </a>
+                    <Link to={"/register"} id="log1">
+                      LOG IN
+                    </Link>
                   </section>
                 </div>
               </div>
@@ -887,23 +888,12 @@ const OThome = () => {
           </div>
 
           <div className="tradingview-widget-container">
-            <div className="tradingview-widget-container__widget"></div>
-            <div className="tradingview-widget-copyright"></div>
-            <script
-              type="text/javascript"
-              src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js"
-              async
-            >
-              {/* {
-                        "width": "100%",
-                        "height": "700",
-                        "defaultColumn": "overview",
-                        "screener_type": "crypto_mkt",
-                        "displayCurrency": "USD",
-                        "colorTheme": "light",
-                        "locale": "en"
-                    } */}
-            </script>
+            <MarketData
+            
+              colorTheme="dark"
+              width="100%"
+              height={600}
+            ></MarketData>
           </div>
 
           <div className="sign_main">
@@ -1181,216 +1171,8 @@ const OThome = () => {
             </div>
           </div>
 
-          <div className="movement">
-            <div class="tradingview-widget-container">
-              <div class="tradingview-widget-container__widget"></div>
-              <div class="tradingview-widget-copyright">
-                <a
-                  href="https://www.tradingview.com/markets/"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  <span class="blue-text">Financial Markets</span>
-                </a>{" "}
-                by TradingView
-              </div>
-              <script
-                type="text/javascript"
-                src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
-                async
-              >
-                {JSON.stringify(
-                  Object.assign({
-                    symbols: [
-                      {
-                        proName: "FOREXCOM:SPXUSD",
-                        title: "S&P 500",
-                      },
-                      {
-                        proName: "FOREXCOM:NSXUSD",
-                        title: "US 100",
-                      },
-                      {
-                        proName: "FX_IDC:EURUSD",
-                        title: "EUR/USD",
-                      },
-                      {
-                        proName: "BITSTAMP:BTCUSD",
-                        title: "Bitcoin",
-                      },
-                      {
-                        proName: "BITSTAMP:ETHUSD",
-                        title: "Ethereum",
-                      },
-                      {
-                        description: "TETHER",
-                        proName: "BINANCE:BTCUSDT",
-                      },
-                      {
-                        description: "SOLANA",
-                        proName: "BINANCE:SOLUSDT",
-                      },
-                      {
-                        description: "OPUS",
-                        proName: "BINANCE:OPUSDT",
-                      },
-                      {
-                        description: "XRP",
-                        proName: "BINANCE:XRPUSDT",
-                      },
-                      {
-                        description: "BNB",
-                        proName: "BINANCE:BNBUSDT",
-                      },
-                      {
-                        description: "SHIBA INU",
-                        proName: "BINANCE:SHIBUSDT",
-                      },
-                      {
-                        description: "DOT",
-                        proName: "BINANCE:DOTUSDT",
-                      },
-                      {
-                        description: "USDT",
-                        proName: "BITSTAMP:BTCUSD",
-                      },
-                      {
-                        description: "USD",
-                        proName: "COINBASE:BTCUSD",
-                      },
-                      {
-                        description: "MATIC",
-                        proName: "BINANCE:MATICUSDT",
-                      },
-                      {
-                        description: "AVAX",
-                        proName: "BINANCE:AVAXUSDT",
-                      },
-                      {
-                        description: "AXS",
-                        proName: "BINANCE:AXSUSDT",
-                      },
-                      {
-                        description: "COSMOS",
-                        proName: "BINANCE:ATOMUSDT",
-                      },
-                      {
-                        description: "RUNE",
-                        proName: "BINANCE:RUNEUSDT",
-                      },
-                      {
-                        description: "LITECOIN",
-                        proName: "FTX:LTCUSD",
-                      },
-                      {
-                        description: "CARDANO",
-                        proName: "BINANCE:ADAUSDT",
-                      },
-                      {
-                        description: "DOGECOIN",
-                        proName: "BINANCE:DOGEUSDT",
-                      },
-                      {
-                        description: "HITCHAIN",
-                        proName: "INTOTHEBLOCK:HIT_INVESTORS",
-                      },
-                      {
-                        description: "DAI",
-                        proName: "UNISWAP3ETH:DAI",
-                      },
-                      {
-                        description: "HEX",
-                        proName: "UNISWAP:HEXUSDC",
-                      },
-                      {
-                        description: "POLKADOT",
-                        proName: "KUCOIN:DOTUSDT",
-                      },
-                      {
-                        description: "POLYGON",
-                        proName: "KUCOIN:MATICUSDT",
-                      },
-                      {
-                        description: "AVALANCHE",
-                        proName: "KUCOIN:AVAXUSDT",
-                      },
-                      {
-                        description: "TRON",
-                        proName: "BINANCE:TRXUSDT",
-                      },
-                      {
-                        description: "MONERO",
-                        proName: "BINANCE:XMRUSDT",
-                      },
-                      {
-                        description: "BITCOIN CASH",
-                        proName: "BINANCE:BCHUSDT",
-                      },
-                      {
-                        description: "FILECOIN",
-                        proName: "KUCOIN:FILUSDT",
-                      },
-                      {
-                        description: "IOTA",
-                        proName: "BINANCE:IOTAUSDT",
-                      },
-                      {
-                        description: "USDD",
-                        proName: "POLONIEX:USDDUSDT",
-                      },
-                      {
-                        description: "VERASITY",
-                        proName: "KUCOIN:VRAUSDT",
-                      },
-                      {
-                        description: "ADA",
-                        proName: "BINANCE:ADAUSDT",
-                      },
-                      {
-                        description: "APE",
-                        proName: "BYBIT:APEUSDT",
-                      },
-                      {
-                        description: "EOS",
-                        proName: "BITMEX:BEOS",
-                      },
-                      {
-                        description: "KUCOIN",
-                        proName: "KUCOIN:BTCUSDT",
-                      },
-                      {
-                        description: "DASH",
-                        proName: "COINBASE:DASHUSD",
-                      },
-                      {
-                        description: "APPLE",
-                        proName: "NASDAQ:AAPL",
-                      },
-                      {
-                        description: "SPDR",
-                        proName: "AMEX:SPY",
-                      },
-                      {
-                        description: "TESLA",
-                        proName: "NASDAQ:TSLA",
-                      },
-                      {
-                        description: "AMAZON",
-                        proName: "NASDAQ:AMZN",
-                      },
-                      {
-                        description: "META",
-                        proName: "NASDAQ:META",
-                      },
-                      {
-                        description: "NETFLIX",
-                        proName: "NASDAQ:NFLX",
-                      },
-                    ],
-                  })
-                )}
-              </script>
-            </div>
+          <div class="movement">
+          <TickerTape colorTheme="dark"></TickerTape>
           </div>
         </div>
       </div>
